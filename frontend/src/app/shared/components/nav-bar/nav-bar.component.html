@@ -1,0 +1,20 @@
+<mat-toolbar class="toolbar" color="primary">
+  <span>CloudArch</span>
+  <div class="button-container" *ngIf="showButtons">
+    <button *ngIf="this.user?.type === 'admin'" mat-flat-button color="primary" (click)="goTo('employees')">
+      Empleados
+    </button>
+    <button *ngIf="this.user" mat-flat-button color="primary" (click)="goTo('home')">
+      Documentos
+    </button>
+    <button *ngIf="this.user" mat-flat-button color="primary" [matMenuTriggerFor]="menu">
+      {{user.username}}
+    </button>
+    <mat-menu #menu='matMenu'>
+      <button mat-flat-button (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        Cerrar Sesión
+      </button>
+    </mat-menu>
+  </div>
+</mat-toolbar>

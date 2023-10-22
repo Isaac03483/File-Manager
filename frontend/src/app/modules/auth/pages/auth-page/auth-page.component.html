@@ -1,0 +1,20 @@
+<div class="auth-container">
+  <form class="auth-form" [formGroup]="authForm" (ngSubmit)="sendData()">
+    <h1>Inicio de sesión</h1>
+    <mat-form-field class="form-element">
+      <mat-label>Nombre de usuario</mat-label>
+      <input formControlName="username" matInput type="text" placeholder="Ingrese el nombre de usuario">
+      <mat-error *ngIf="authForm.get('username')?.invalid">El usuario es obligario</mat-error>
+    </mat-form-field>
+    <mat-form-field class="form-element">
+      <mat-label>Contraseña</mat-label>
+      <input formControlName="password" matInput [type]="hide ? 'text' : 'password'" placeholder="Ingrese su contraseña">
+      <button mat-icon-button matSuffix type="button" (click)="hide = !hide">
+        <mat-icon>{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+      </button>
+      <mat-error *ngIf="authForm.get('password')?.invalid">La contraseña es obligaria</mat-error>
+
+    </mat-form-field>
+    <button [disabled]="authForm.invalid" class="button-element" mat-flat-button color="primary">Ingresar</button>
+  </form>
+</div>
