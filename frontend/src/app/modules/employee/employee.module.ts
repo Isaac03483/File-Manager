@@ -7,19 +7,27 @@ import {MatTableModule} from "@angular/material/table";
 import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {MatTooltipModule} from "@angular/material/tooltip";
+import {MatInputModule} from "@angular/material/input";
+import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
+import { EmployeesTableComponent } from './components/employees-table/employees-table.component';
+import {MatCheckboxModule} from "@angular/material/checkbox";
 
 
 @NgModule({
   declarations: [
-    EmployeePageComponent
+    EmployeePageComponent,
+    AddEmployeeComponent,
+    EmployeesTableComponent
   ],
-  imports: [
-    CommonModule,
-    EmployeeRoutingModule,
-    MatTableModule,
-    MatIconModule,
-    MatButtonModule,
-    MatTooltipModule
-  ]
+    imports: [
+        CommonModule,
+        EmployeeRoutingModule,
+        MatTableModule,
+        MatIconModule,
+        MatButtonModule,
+        MatTooltipModule,
+        MatInputModule,
+        MatCheckboxModule
+    ]
 })
 export class EmployeeModule { }

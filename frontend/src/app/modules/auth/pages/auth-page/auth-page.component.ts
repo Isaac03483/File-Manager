@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {AuthService} from "../../../../services/auth/auth.service";
@@ -37,20 +37,12 @@ export class AuthPageComponent {
   sendData() {
     const { username, password } = this.authForm.value;
 
-    const user = this.users.find((u:any) => u.username === username);
-
-
-    if(!user) {
-      alert("No se encontró al usuario");
-      return;
-    }
-
-    if(user.password !== password) {
-      alert("La contraseña no coincide");
-      return;
-    }
-
-    this.authService.sendUserData.emit(user);
-    this.router.navigate(['/', 'home']);
-}
+    this.authService.findUser(username, password).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.authService.sendUserData.emit(response);
+        this.router.navigate(['/', 'home']);
+      }
+    })
+  }
 }

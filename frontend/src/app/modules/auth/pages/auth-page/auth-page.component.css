@@ -3,13 +3,11 @@
   top: 20vh;
   left: 70vh;
   width: 65vh;
-  border: 1px solid black;
-  border-radius: 1rem;
+  border: 1px solid #fafafa;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background-color: white;
 }
 
 h1 {

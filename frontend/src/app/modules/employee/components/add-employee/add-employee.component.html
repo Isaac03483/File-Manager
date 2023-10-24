@@ -1,0 +1,23 @@
+<div class="add-employee-container mat-elevation-z3">
+  <form class="form-container">
+    <mat-form-field class="form-field">
+      <mat-label>Nombre de usuario</mat-label>
+      <input matInput type="text" placeholder="Ingrese el nombre de usuario">
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>Contraseña</mat-label>
+      <input matInput [type]="hide? 'text' : 'password'" placeholder="Ingrese la contraseña">
+      <button mat-icon-button matSuffix type="button" (click)="hide = !hide;">
+        <mat-icon>{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>Nombre de empleado</mat-label>
+      <input matInput type="text" placeholder="Ingrese el nombre del empleado">
+    </mat-form-field>
+    <mat-checkbox style="margin-bottom: 15px;">Administrador</mat-checkbox>
+    <button mat-flat-button color="primary" style="margin-bottom: 15px">
+      Agregar
+    </button>
+  </form>
+</div>
