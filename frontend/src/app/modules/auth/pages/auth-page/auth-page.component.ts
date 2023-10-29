@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {AuthService} from "../../../../services/auth/auth.service";
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-auth-page',
@@ -42,6 +43,15 @@ export class AuthPageComponent {
         console.log(response);
         this.authService.sendUserData.emit(response);
         this.router.navigate(['/', 'home']);
+      },
+      error: error => {
+        Swal.fire({
+          title: "No encontrado",
+          text: "El usuario no se encontró",
+          icon: "error",
+          showConfirmButton: false,
+          timer: 2000
+        })
       }
     })
   }

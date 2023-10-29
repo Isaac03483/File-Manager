@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, NgOptimizedImage} from '@angular/common';
 
 import { EmployeeRoutingModule } from './employee-routing.module';
 import { EmployeePageComponent } from './pages/employee-page/employee-page.component';
@@ -11,6 +11,7 @@ import {MatInputModule} from "@angular/material/input";
 import { AddEmployeeComponent } from './components/add-employee/add-employee.component';
 import { EmployeesTableComponent } from './components/employees-table/employees-table.component';
 import {MatCheckboxModule} from "@angular/material/checkbox";
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -27,7 +28,9 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
         MatButtonModule,
         MatTooltipModule,
         MatInputModule,
-        MatCheckboxModule
+        MatCheckboxModule,
+        ReactiveFormsModule,
+        NgOptimizedImage
     ]
 })
 export class EmployeeModule { }

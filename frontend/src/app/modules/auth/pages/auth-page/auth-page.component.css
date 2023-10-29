@@ -1,16 +1,11 @@
 .auth-container {
-  position: absolute;
-  top: 20vh;
-  left: 70vh;
-  width: 65vh;
-  border: 1px solid #fafafa;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-direction: column;
+  margin-top: 70px;
 }
 
-h1 {
+.auth-title {
   font-size: 2rem;
 }
 
@@ -20,6 +15,7 @@ h1 {
   justify-content: center;
   flex-direction: column;
   margin: 45px 0;
+  padding: 3rem 5rem;
 }
 
 .form-element {
