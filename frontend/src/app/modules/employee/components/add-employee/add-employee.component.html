@@ -1,27 +1,31 @@
 <div class="add-employee-container mat-elevation-z3">
   <form class="form-container" [formGroup]="userForm" (ngSubmit)="saveUser()">
-    <mat-form-field class="form-field" appearance="outline">
-      <mat-label>Nombre de usuario</mat-label>
-      <input formControlName="username" matInput type="text" placeholder="Ingrese el nombre de usuario">
-      <mat-error *ngIf="userForm.get('username')?.invalid">El nombre de usuario es obligatorio</mat-error>
-    </mat-form-field>
-    <mat-form-field class="form-field" appearance="outline">
-      <mat-label>Contraseña</mat-label>
-      <input formControlName="password" matInput [type]="hide? 'text' : 'password'" placeholder="Ingrese la contraseña">
-      <button mat-icon-button matSuffix type="button" (click)="hide = !hide;">
-        <mat-icon>{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+    <div>
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Nombre de usuario</mat-label>
+        <input formControlName="username" matInput type="text" placeholder="Ingrese el nombre de usuario">
+        <mat-error *ngIf="userForm.get('username')?.invalid">El nombre de usuario es obligatorio</mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Contraseña</mat-label>
+        <input formControlName="password" matInput [type]="hide? 'text' : 'password'" placeholder="Ingrese la contraseña">
+        <button mat-icon-button matSuffix type="button" (click)="hide = !hide;">
+          <mat-icon>{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+        </button>
+        <mat-error *ngIf="userForm.get('password')?.hasError('required')">La contraseña es obligatoria</mat-error>
+        <mat-error *ngIf="userForm.get('password')?.hasError('minlength')">La contraseña debe poseer al menos 8 carácteres</mat-error>
+      </mat-form-field>
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Nombre de empleado</mat-label>
+        <input formControlName="employeeName" matInput type="text" placeholder="Ingrese el nombre del empleado">
+        <mat-error *ngIf="userForm.get('employeeName')?.invalid">El nombre del empleado es obligatorio</mat-error>
+      </mat-form-field>
+      <mat-checkbox formControlName="isAdmin">Administrador</mat-checkbox>
+    </div>
+    <div>
+      <button class="button-element" [disabled]="this.userForm.invalid" mat-flat-button color="primary">
+        Agregar
       </button>
-      <mat-error *ngIf="userForm.get('password')?.hasError('required')">La contraseña es obligatoria</mat-error>
-      <mat-error *ngIf="userForm.get('password')?.hasError('minlength')">La contraseña debe poseer al menos 8 carácteres</mat-error>
-    </mat-form-field>
-    <mat-form-field class="form-field" appearance="outline">
-      <mat-label>Nombre de empleado</mat-label>
-      <input formControlName="employeeName" matInput type="text" placeholder="Ingrese el nombre del empleado">
-      <mat-error *ngIf="userForm.get('employeeName')?.invalid">El nombre del empleado es obligatorio</mat-error>
-    </mat-form-field>
-    <mat-checkbox formControlName="isAdmin" style="margin-bottom: 15px;">Administrador</mat-checkbox>
-    <button [disabled]="this.userForm.invalid" mat-flat-button color="primary" style="margin-bottom: 15px">
-      Agregar
-    </button>
+    </div>
   </form>
 </div>

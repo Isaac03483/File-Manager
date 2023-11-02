@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 import {Router} from "@angular/router";
 import {AuthService} from "../../../../services/auth/auth.service";
 import Swal from "sweetalert2";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-auth-page',
@@ -32,7 +33,7 @@ export class AuthPageComponent {
     }
   ]
 
-  constructor(private router: Router, private authService: AuthService) {
+  constructor(private router: Router, private authService: AuthService, private cookieService: CookieService) {
   }
 
   sendData() {
@@ -42,6 +43,7 @@ export class AuthPageComponent {
       next: (response) => {
         console.log(response);
         this.authService.sendUserData.emit(response);
+        this.cookieService.set('username', response.username);
         this.router.navigate(['/', 'home']);
       },
       error: error => {

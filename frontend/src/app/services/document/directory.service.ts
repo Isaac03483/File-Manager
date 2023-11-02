@@ -13,6 +13,16 @@ export class DirectoryService {
   constructor(private httpClient: HttpClient) { }
 
   getDirectoriesByUsername(username: string, path: string) : Observable<any> {
-    return this.httpClient.get(`${this.URL}/directories/${username}/${path}`);
+    return this.httpClient.get(`${this.URL}/directories/${username}?path=${path}`);
+  }
+
+  createDirectory(username: string, path: string, name: string) : Observable<any> {
+    const body = {
+      username,
+      path,
+      name
+    }
+
+    return this.httpClient.post(`${this.URL}/directories`, body);
   }
 }

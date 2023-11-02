@@ -1,9 +1,11 @@
 <div class="container">
+
   <mat-toolbar>
-    <span>Documentos</span>
+    Documentos
     <span class="spacer"></span>
-    <button mat-button>Mi carpeta</button>
-    <button mat-button>Compartido</button>
+    <button mat-button routerLink="/home/my-documents">Mis documentos</button>
+    <button mat-button routerLink="/home/shared-documents">Compartido</button>
   </mat-toolbar>
 
+  <router-outlet></router-outlet>
 </div>

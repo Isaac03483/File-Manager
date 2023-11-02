@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {MatDialog} from "@angular/material/dialog";
-import {FormDialogComponent} from "../../shared/components/form-dialog/form-dialog.component";
+import {UpdateDialogComponent} from "../../modules/employee/components/update-dialog/update-dialog.component";
 
 @Injectable({
   providedIn: 'root'
@@ -10,6 +10,6 @@ export class DialogService {
   constructor(private matDialog: MatDialog) { }
 
   openUpdateEmployeeDialog(data: any) {
-    return this.matDialog.open(FormDialogComponent, { data });
+    return this.matDialog.open(UpdateDialogComponent, { data });
   }
 }

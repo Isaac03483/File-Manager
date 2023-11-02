@@ -1,11 +1,30 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import {HomePageComponent} from "./pages/home-page/home-page.component";
+import {ShowDocumentsPageComponent} from "./pages/show-documents-page/show-documents-page.component";
+import {
+  ShowSharedDocumentsPageComponent
+} from "./pages/show-shared-documents-page/show-shared-documents-page.component";
+import {ShowFilePageComponent} from "./pages/show-file-page/show-file-page.component";
 
 const routes: Routes = [
   {
     path: '',
-    component: HomePageComponent
+    component: HomePageComponent,
+    children: [
+      {
+        path: 'my-documents',
+        component: ShowDocumentsPageComponent
+      },
+      {
+        path: 'show-file',
+        component: ShowFilePageComponent
+      },
+      {
+        path: 'shared-documents',
+        component: ShowSharedDocumentsPageComponent
+      }
+    ]
   }
 ];
 

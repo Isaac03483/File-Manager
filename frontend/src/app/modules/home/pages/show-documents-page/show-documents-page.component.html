@@ -1,0 +1,64 @@
+<div class="container">
+  <div class="option-container">
+    <button (click)="goBack()" mat-button *ngIf="this.previousPath !== ''">
+      <mat-icon>keyboard_backspace</mat-icon>
+      volver
+    </button>
+    <button mat-button [matMenuTriggerFor]="createMenu">
+      <mat-icon>add</mat-icon>
+      Crear
+    </button>
+    <mat-menu #createMenu="matMenu">
+      <button mat-menu-item (click)="createNewDirectory(createDirectoryTemplate)">
+        <mat-icon>create_new_folder</mat-icon>
+        Crear Carpeta
+      </button>
+      <button mat-menu-item>
+        <mat-icon>note_add</mat-icon>
+        crear Documento
+      </button>
+    </mat-menu>
+  </div>
+  <div>
+    <h2>Directorios</h2>
+    <div class="documents-container" *ngFor="let directory of directories">
+      <button class="document-button" mat-button (click)="goTo(directory)">
+        <mat-icon>folder</mat-icon>
+        {{ directory.name }}
+      </button>
+    </div>
+  </div>
+  <div>
+    <h2>Archivos</h2>
+    <div class="documents-container" *ngFor="let file of files">
+      <button class="document-button" mat-button [matMenuTriggerFor]="fileOptionsMenu" [matMenuTriggerData]="file">
+        <mat-icon>insert_drive_file</mat-icon>
+        {{ file.name }}
+      </button>
+      <mat-menu #fileOptionsMenu="matMenu">
+        <ng-template matMenuContent let-file>
+          <button mat-menu-item>Abrir Archivo</button>
+          <button mat-menu-item>Compartir Archivo</button>
+          <button mat-menu-item>Eliminar Archivo</button>
+        </ng-template>
+      </mat-menu>
+    </div>
+  </div>
+</div>
+
+<ng-template #createDirectoryTemplate>
+  <div style="margin: 20px;">
+    <form class="form-container" [formGroup]="createDirectoryForm" (ngSubmit)="createDirectory()">
+      <h2>Crear Directorio</h2>
+      <mat-form-field appearance="outline" class="form-field">
+        <mat-label>Nombre del directorio</mat-label>
+        <input formControlName="directoryName" matInput placeholder="Ingrese el nombre del directorio">
+        <mat-error *ngIf="createDirectoryForm.invalid">El nombre del directorio es obligatorio</mat-error>
+      </mat-form-field>
+      <div>
+        <button mat-button type="button" mat-dialog-close>Cancelar</button>
+        <button [disabled]="createDirectoryForm.invalid" mat-button color="primary">Crear</button>
+      </div>
+    </form>
+  </div>
+</ng-template>

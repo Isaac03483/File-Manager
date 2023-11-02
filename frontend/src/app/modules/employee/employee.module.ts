@@ -12,13 +12,14 @@ import { AddEmployeeComponent } from './components/add-employee/add-employee.com
 import { EmployeesTableComponent } from './components/employees-table/employees-table.component';
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {ReactiveFormsModule} from "@angular/forms";
+import {MatDialogModule} from "@angular/material/dialog";
 
 
 @NgModule({
   declarations: [
     EmployeePageComponent,
     AddEmployeeComponent,
-    EmployeesTableComponent
+    EmployeesTableComponent,
   ],
     imports: [
         CommonModule,
@@ -30,7 +31,8 @@ import {ReactiveFormsModule} from "@angular/forms";
         MatInputModule,
         MatCheckboxModule,
         ReactiveFormsModule,
-        NgOptimizedImage
+        NgOptimizedImage,
+        MatDialogModule
     ]
 })
 export class EmployeeModule { }

@@ -10,3 +10,20 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
 .container {
   margin: 25px 20px;
 }
+
+.button-element {
+  width: 20rem;
+  margin-top: 15px;
+}
+
+.form-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.form-field {
+  width: 35vh;
+  margin: 5px 0;
+}

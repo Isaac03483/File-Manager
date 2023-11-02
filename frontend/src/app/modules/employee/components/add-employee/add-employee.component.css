@@ -5,14 +5,11 @@
 }
 
 .form-container {
-  width: 100rem;
-  margin: 20px 0 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
+  margin: 30px 0;
 }
 
 .form-field {
-  width: 35vh;
-  margin: 15px 0;
+  width: 20rem;
+  margin: 0 20px;
 }
+
