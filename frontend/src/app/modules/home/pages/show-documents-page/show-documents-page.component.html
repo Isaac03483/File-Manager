@@ -13,7 +13,7 @@
         <mat-icon>create_new_folder</mat-icon>
         Crear Carpeta
       </button>
-      <button mat-menu-item>
+      <button mat-menu-item (click)="showFile()">
         <mat-icon>note_add</mat-icon>
         crear Documento
       </button>
@@ -31,13 +31,13 @@
   <div>
     <h2>Archivos</h2>
     <div class="documents-container" *ngFor="let file of files">
-      <button class="document-button" mat-button [matMenuTriggerFor]="fileOptionsMenu" [matMenuTriggerData]="file">
+      <button class="document-button" mat-button  [matMenuTriggerFor]="fileOptionsMenu" [matMenuTriggerData]="{file: file}">
         <mat-icon>insert_drive_file</mat-icon>
         {{ file.name }}
       </button>
       <mat-menu #fileOptionsMenu="matMenu">
-        <ng-template matMenuContent let-file>
-          <button mat-menu-item>Abrir Archivo</button>
+        <ng-template matMenuContent let-file="file">
+          <button mat-menu-item (click)="showFile(file.name)">Abrir Archivo</button>
           <button mat-menu-item>Compartir Archivo</button>
           <button mat-menu-item>Eliminar Archivo</button>
         </ng-template>

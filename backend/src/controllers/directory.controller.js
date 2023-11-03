@@ -4,8 +4,6 @@ const findUserDirectories = async (req, res) => {
     const username = req.params.username;
     const path = req.query.path;
 
-    console.log('username:', username, 'path:', path);
-
     const directories = await Directory.find( { username: username, path: path });
 
     res.json(directories);

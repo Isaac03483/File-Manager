@@ -2,19 +2,19 @@ use cloudArch;
 
 db.createCollection('users');
 db.createCollection('directories');
-db.createCollection('files');
+db.createCollection('sharedFiles');
 
 db.users.insertMany([
     {
         'username': 'admin123',
         'employeeName': 'Patricio Estrella',
-        'password': '1234',
+        'password': '12345678',
         'type': 'admin'
     },
     {
         'username': 'user123',
         'employeeName': 'Bob esponja',
-        'password': '1234',
+        'password': '12345678',
         'type': 'user'
     }
 ]);
@@ -22,35 +22,33 @@ db.users.insertMany([
 db.directories.insertMany([
     {
         'username': 'admin123',
-        'name': 'root'
-    },
-    {
-        'username': 'admin123',
-        'name': 'shared'
+        'path': 'root',
+        'name': 'MyDirectoryAdmin'
     },
     {
         'username': 'user123',
-        'name': 'root'
-    },
-    {
-        'username': 'user123',
-        'name': 'shared'
+        'path': 'root',
+        'name': 'MyDirectoryUser'
     }
 ]);
 
 db.files.insertMany([
     {
         'username': 'admin123',
-        'path': '/root',
-        'name': 'MyFile',
-        'type': 'txt',
+        'path': 'root',
+        'name': 'MyFile.txt',
         'content': 'admin file content'
     },
     {
+        'username': 'admin123',
+        'path': 'root',
+        'name': 'Other-file.txt',
+        'content': 'admin other file content'
+    },
+    {
         'username': 'user123',
-        'path': '/root',
-        'name': 'MyFile',
-        'type': 'txt',
+        'path': 'root',
+        'name': 'MyFile.txt',
         'content': 'user file content'
     }
 ]);

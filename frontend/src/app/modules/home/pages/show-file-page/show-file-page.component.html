@@ -1,1 +1,24 @@
-<p>show-file-page works!</p>
+<div class="container">
+  <div>
+    <button mat-flat-button routerLink="/home/my-documents">
+      <mat-icon>keyboard_backspace</mat-icon>
+      Volver
+    </button>
+  </div>
+  <form class="form-container" [formGroup]="fileForm" (ngSubmit)="save()">
+    <div>
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input formControlName="name" matInput>
+      </mat-form-field>
+      <button [disabled]="this.fileForm.invalid" style="margin-left: 15px;" mat-flat-button color="primary">Guardar</button>
+    </div>
+    <div class="form-container">
+      <label>Linea: {{rows}} Columna: {{cols}}</label>
+      <mat-form-field class="textarea-field" appearance="outline">
+        <mat-label>Contenido</mat-label>
+        <textarea matInput formControlName="content" [(ngModel)]="content" (keyup)="countRowsCols()" rows="20"></textarea>
+      </mat-form-field>
+    </div>
+  </form>
+</div>

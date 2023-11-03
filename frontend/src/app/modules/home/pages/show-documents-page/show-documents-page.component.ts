@@ -6,6 +6,7 @@ import {MatDialog} from "@angular/material/dialog";
 import {FormBuilder, FormGroup, FormGroupDirective, Validators} from "@angular/forms";
 import Swal from "sweetalert2";
 import {MatMenu, MatMenuTrigger} from "@angular/material/menu";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-show-documents-page',
@@ -23,7 +24,7 @@ export class ShowDocumentsPageComponent implements OnInit {
   @ViewChild(FormGroupDirective) formDir!: FormGroupDirective;
 
 
-  constructor(private cookieService: CookieService, private directoryService: DirectoryService,
+  constructor(private cookieService: CookieService, private directoryService: DirectoryService, private router: Router,
               private fileService: FileService, private matDialog: MatDialog, private builder: FormBuilder) {
 
     this.createDirectoryForm = this.builder.group({
@@ -109,5 +110,12 @@ export class ShowDocumentsPageComponent implements OnInit {
 
     this.getDirectories();
     this.getFiles();
+  }
+
+  showFile(name?: string) {
+    this.router.navigate(['/','home','show-file'], name ?
+      {queryParams: {filename: name, path: this.currentPath}} :
+      {queryParams: {filename: '', path: this.currentPath}}
+    );
   }
 }

@@ -6,7 +6,6 @@ const fileSchema = new Schema({
     username: String,
     path: String,
     name: String,
-    type: String,
     content: String
 }, {
     versionKey: false

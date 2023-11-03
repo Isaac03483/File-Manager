@@ -1,0 +1,7 @@
+.textarea-field {
+  width: 100vh;
+}
+
+textarea {
+  resize: none;
+}
