@@ -13,6 +13,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatMenuModule} from "@angular/material/menu";
 import { ShowSharedDocumentsPageComponent } from './pages/show-shared-documents-page/show-shared-documents-page.component';
 import { ShowFilePageComponent } from './pages/show-file-page/show-file-page.component';
+import { ShowSharedFilePageComponent } from './pages/show-shared-file-page/show-shared-file-page.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { ShowFilePageComponent } from './pages/show-file-page/show-file-page.com
     HomePageComponent,
      ShowDocumentsPageComponent,
      ShowSharedDocumentsPageComponent,
-     ShowFilePageComponent
+     ShowFilePageComponent,
+     ShowSharedFilePageComponent
   ],
   imports: [
     CommonModule,

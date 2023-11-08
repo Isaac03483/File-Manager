@@ -38,7 +38,7 @@
       <mat-menu #fileOptionsMenu="matMenu">
         <ng-template matMenuContent let-file="file">
           <button mat-menu-item (click)="showFile(file.name)">Abrir Archivo</button>
-          <button mat-menu-item>Compartir Archivo</button>
+          <button mat-menu-item (click)="showSharedTemplate(sharedFileTemplate, file)">Compartir Archivo</button>
           <button mat-menu-item>Eliminar Archivo</button>
         </ng-template>
       </mat-menu>
@@ -47,18 +47,31 @@
 </div>
 
 <ng-template #createDirectoryTemplate>
-  <div style="margin: 20px;">
-    <form class="form-container" [formGroup]="createDirectoryForm" (ngSubmit)="createDirectory()">
-      <h2>Crear Directorio</h2>
-      <mat-form-field appearance="outline" class="form-field">
-        <mat-label>Nombre del directorio</mat-label>
-        <input formControlName="directoryName" matInput placeholder="Ingrese el nombre del directorio">
-        <mat-error *ngIf="createDirectoryForm.invalid">El nombre del directorio es obligatorio</mat-error>
-      </mat-form-field>
-      <div>
-        <button mat-button type="button" mat-dialog-close>Cancelar</button>
-        <button [disabled]="createDirectoryForm.invalid" mat-button color="primary">Crear</button>
-      </div>
-    </form>
+  <div class="form-container container">
+    <h2>Crear Directorio</h2>
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Nombre del directorio</mat-label>
+      <input [formControl]="createDirectoryControl" matInput placeholder="Ingrese el nombre del directorio">
+      <mat-error *ngIf="createDirectoryControl.invalid">El nombre del directorio es obligatorio</mat-error>
+    </mat-form-field>
+    <div>
+      <button mat-flat-button color="warn" type="button" mat-dialog-close style="margin-right: 10px;">Cancelar</button>
+      <button (click)="createDirectory()" [disabled]="createDirectoryControl.invalid" mat-flat-button color="primary">Crear</button>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #sharedFileTemplate let-data>
+  <div class="form-container container">
+    <h2>Compartir: {{data.name}}</h2>
+    <mat-form-field appearance="outline" class="form-field">
+      <mat-label>Nombre del usuario</mat-label>
+      <input [formControl]="shareFileControl" matInput placeholder="Ingrese el usuario a compartir">
+      <mat-error *ngIf="shareFileControl.invalid">El nombre del usuario es obligatorio</mat-error>
+    </mat-form-field>
+    <div>
+      <button mat-flat-button color="warn" type="button" mat-dialog-close style="margin-right: 10px;">Cancelar</button>
+      <button (click)="shareFile(data)" [disabled]="shareFileControl.invalid" mat-flat-button color="primary">Compartir</button>
+    </div>
   </div>
 </ng-template>

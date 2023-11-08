@@ -6,6 +6,7 @@ import {
   ShowSharedDocumentsPageComponent
 } from "./pages/show-shared-documents-page/show-shared-documents-page.component";
 import {ShowFilePageComponent} from "./pages/show-file-page/show-file-page.component";
+import {ShowSharedFilePageComponent} from "./pages/show-shared-file-page/show-shared-file-page.component";
 
 const routes: Routes = [
   {
@@ -19,6 +20,10 @@ const routes: Routes = [
       {
         path: 'show-file',
         component: ShowFilePageComponent
+      },
+      {
+        path: 'show-shared-file',
+        component: ShowSharedFilePageComponent
       },
       {
         path: 'shared-documents',

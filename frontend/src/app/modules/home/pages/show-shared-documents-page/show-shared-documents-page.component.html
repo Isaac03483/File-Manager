@@ -1,26 +1,17 @@
 <div class="container">
-  <div class="option-container">
-    <button (click)="goBack()" mat-button *ngIf="this.previousPath !== ''">
-      <mat-icon>keyboard_backspace</mat-icon>
-      volver
-    </button>
-  </div>
   <div>
-    <h2>Directorios</h2>
-    <div class="documents-container" *ngFor="let directory of directories">
-      <button class="document-button" mat-button (click)="goTo(directory)">
-        <mat-icon>folder</mat-icon>
-        {{ directory.name }}
-      </button>
-    </div>
-  </div>
-  <div>
-    <h2>Archivos</h2>
+    <h2>Archivos compartidos</h2>
     <div class="documents-container" *ngFor="let file of files">
-      <button class="document-button" mat-button>
+      <button class="document-button" mat-button  [matMenuTriggerFor]="fileOptionsMenu" [matMenuTriggerData]="{file: file}">
         <mat-icon>insert_drive_file</mat-icon>
         {{ file.name }}
       </button>
+      <mat-menu #fileOptionsMenu="matMenu">
+        <ng-template matMenuContent let-file="file">
+          <button mat-menu-item (click)="showFile(file.name)">Abrir Archivo</button>
+          <button mat-menu-item>Eliminar Archivo</button>
+        </ng-template>
+      </mat-menu>
     </div>
   </div>
 </div>

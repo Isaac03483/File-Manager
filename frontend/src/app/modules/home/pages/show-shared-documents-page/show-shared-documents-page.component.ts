@@ -5,6 +5,8 @@ import {FileService} from "../../../../services/document/file.service";
 import {MatDialog} from "@angular/material/dialog";
 import {FormBuilder, Validators} from "@angular/forms";
 import Swal from "sweetalert2";
+import {SharedFileService} from "../../../../services/document/shared-file.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-show-shared-documents-page',
@@ -14,33 +16,20 @@ import Swal from "sweetalert2";
 export class ShowSharedDocumentsPageComponent implements OnInit {
 
   username: string = '';
-  directories: any[] = [];
   files: any[] = [];
-  currentPath: string = 'shared';
-  previousPath: string = '';
 
-  constructor(private cookieService: CookieService, private directoryService: DirectoryService,
-              private fileService: FileService) {
+  constructor(private cookieService: CookieService, private router: Router,
+              private sharedFileService: SharedFileService) {
 
   }
   ngOnInit(): void {
     this.username = this.cookieService.get('username');
 
-    this.getDirectories();
-    this.getFiles();
+    this.getSharedFiles();
   }
 
-  getDirectories() {
-    this.directoryService.getDirectoriesByUsername(this.username, this.currentPath)
-      .subscribe({
-        next: response => {
-          this.directories = response;
-        }
-      });
-  }
-
-  getFiles() {
-    this.fileService.getFilesByUsername(this.username, this.currentPath)
+  getSharedFiles() {
+    this.sharedFileService.getUserSharedFiles(this.username)
       .subscribe({
         next: response => {
           this.files = response;
@@ -48,22 +37,9 @@ export class ShowSharedDocumentsPageComponent implements OnInit {
       })
   }
 
-  goTo(directory: any) {
-
-    console.log(directory);
-
-    this.previousPath = directory.path;
-    this.currentPath = `${directory.path}/${directory.name}`;
-
-    this.getDirectories();
-    this.getFiles();
-  }
-
-  goBack() {
-    this.currentPath = this.previousPath;
-    this.previousPath = this.previousPath === 'shared' ? '' : this.previousPath.substring(0, this.previousPath.lastIndexOf("/"));
-
-    this.getDirectories();
-    this.getFiles();
+  showFile(name?: string) {
+    this.router.navigate(['/','home','show-shared-file'],
+      {queryParams: {filename: name}}
+    );
   }
 }
