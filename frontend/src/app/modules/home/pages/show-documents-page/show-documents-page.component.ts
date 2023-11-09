@@ -8,6 +8,7 @@ import Swal from "sweetalert2";
 import {MatMenu, MatMenuTrigger} from "@angular/material/menu";
 import {Router} from "@angular/router";
 import {SharedFileService} from "../../../../services/document/shared-file.service";
+import {MatBottomSheet, MatBottomSheetRef} from "@angular/material/bottom-sheet";
 
 @Component({
   selector: 'app-show-documents-page',
@@ -23,11 +24,14 @@ export class ShowDocumentsPageComponent implements OnInit {
   previousPath: string = '';
   createDirectoryControl: FormControl = new FormControl('', Validators.required);
   shareFileControl: FormControl = new FormControl('', Validators.required);
+  matBottomSheetRef!: MatBottomSheetRef;
+
   @ViewChild(FormGroupDirective) formDir!: FormGroupDirective;
 
 
   constructor(private cookieService: CookieService, private directoryService: DirectoryService, private router: Router,
-              private fileService: FileService, private matDialog: MatDialog, private shareFileService: SharedFileService) {
+              private fileService: FileService, private matDialog: MatDialog, private shareFileService: SharedFileService,
+              private matBottomSheet: MatBottomSheet) {
 
   }
   ngOnInit(): void {
@@ -128,14 +132,16 @@ export class ShowDocumentsPageComponent implements OnInit {
       .subscribe({
         next: val => {
           this.shareFileControl.reset();
+          if(this.matBottomSheetRef) {
+            this.matBottomSheetRef.dismiss();
+          }
         }
       });
   }
 
   shareFile(data: any) {
     const usernameDestiny = this.shareFileControl.value;
-    console.log(usernameDestiny);
-    this.shareFileService.sharedFileTo(usernameDestiny, this.username, data.name, data.content)
+    this.shareFileService.sharedFileTo(this.username, usernameDestiny, data.name, data.content)
       .subscribe({
         next: response => {
           Swal.fire({
@@ -157,5 +163,10 @@ export class ShowDocumentsPageComponent implements OnInit {
           });
         }
       });
+  }
+
+  showOptionsTemplate($event: MouseEvent, directoryOptionsTemplate: TemplateRef<any>, data: any) {
+    $event.preventDefault();
+    this.matBottomSheetRef = this.matBottomSheet.open(directoryOptionsTemplate, { data });
   }
 }

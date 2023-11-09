@@ -8,12 +8,12 @@
   <div class="form-container">
     <div style="margin-bottom: 20px;">
       <h3 style="display: inline-block">Nombre: {{this.filename}}</h3>
-      <button style="margin-left: 15px;" mat-flat-button color="primary">Guardar</button>
+      <button style="margin-left: 15px;" mat-flat-button color="primary" (click)="updateFile()">Guardar</button>
     </div>
     <label>Linea: {{rows}} Columna: {{cols}}</label>
     <mat-form-field class="textarea-field" appearance="outline">
       <mat-label>Contenido</mat-label>
-      <textarea matInput [formControl]="contentControl" [(ngModel)]="content" (keyup)="countRowsCols()" rows="20"></textarea>
+      <textarea matInput [formControl]="contentControl" (keyup)="countRowsCols()" rows="20"></textarea>
     </mat-form-field>
   </div>
 </div>

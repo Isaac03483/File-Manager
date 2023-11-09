@@ -44,11 +44,14 @@ export class ShowFilePageComponent implements OnInit {
           next: response => {
             this.filename = response.name;
             this.content = response.content;
+
+            this.fileForm.get('name')?.setValue(this.filename);
+            this.fileForm.get('content')?.setValue(this.content);
           }
         })
     }
 
-    this.fileForm.get('name')?.setValue(this.filename);
+
   }
 
   countRowsCols() {
@@ -72,11 +75,11 @@ export class ShowFilePageComponent implements OnInit {
     }
 
     if(this.filename !== '') {
-      this.updateFile(name, this.content);
+      this.updateFile(name, content);
       return;
     }
 
-    this.saveFile(name, this.content);
+    this.saveFile(name, content);
   }
 
   private saveFile(name: any, content: any) {

@@ -24,4 +24,21 @@ export class SharedFileService {
     }
     return this.httpClient.post(`${this.URL}/shared-files`, body);
   }
+
+  findSharedFile(username: string, name: string) : Observable<any> {
+    return this.httpClient.get(`${this.URL}/shared-files/find/${username}/${name}`);
+  }
+
+  updateSharedFile(username: string, name: string, content: string) : Observable<any> {
+    const body = {
+      username,
+      name,
+      content
+    }
+    return this.httpClient.put(`${this.URL}/shared-files`, body);
+  }
+
+  deleteSharedFile(username: string, name: string) : Observable<any> {
+    return this.httpClient.delete(`${this.URL}/shared-files/${username}/${name}`);
+  }
 }

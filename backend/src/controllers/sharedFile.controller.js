@@ -28,7 +28,39 @@ const shareFileTo = async (req, res) => {
     res.json(saved);
 };
 
+const findSharedFile = async (req, res) => {
+    const username = req.params.username;
+    const name = req.params.name;
+
+    const file = await SharedFile.findOne({ usernameDestiny: username, name: name });
+
+    res.json(file);
+};
+
+const updateSharedFile = async (req, res) => {
+    const username = req.body.username;
+    const name = req.body.name;
+    const content = req.body.content;
+
+    const updated = await SharedFile.updateOne({ usernameDestiny: username, name: name },
+        { $set: { content: content } });
+
+    res.json(updated);
+}
+
+const deleteSharedFile = async (req, res) => {
+    const username = req.params.username;
+    const name = req.params.name;
+
+    const deleted = await SharedFile.deleteOne( { usernameDestiny: username, name: name } );
+
+    res.json(deleted);
+}
+
 module.exports = {
     findUserSharedFiles,
-    shareFileTo
+    shareFileTo,
+    findSharedFile,
+    updateSharedFile,
+    deleteSharedFile
 }

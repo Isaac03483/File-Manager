@@ -22,7 +22,8 @@
   <div>
     <h2>Directorios</h2>
     <div class="documents-container" *ngFor="let directory of directories">
-      <button class="document-button" mat-button (click)="goTo(directory)">
+      <button class="document-button" mat-button (click)="goTo(directory)"
+              (contextmenu)="showOptionsTemplate($event, directoryOptionsTemplate, directory)">
         <mat-icon>folder</mat-icon>
         {{ directory.name }}
       </button>
@@ -31,21 +32,24 @@
   <div>
     <h2>Archivos</h2>
     <div class="documents-container" *ngFor="let file of files">
-      <button class="document-button" mat-button  [matMenuTriggerFor]="fileOptionsMenu" [matMenuTriggerData]="{file: file}">
+      <button class="document-button" mat-button (click)="showFile(file.name)"
+              (contextmenu)="showOptionsTemplate($event, fileOptionsTemplate, file)">
         <mat-icon>insert_drive_file</mat-icon>
         {{ file.name }}
       </button>
-      <mat-menu #fileOptionsMenu="matMenu">
-        <ng-template matMenuContent let-file="file">
-          <button mat-menu-item (click)="showFile(file.name)">Abrir Archivo</button>
-          <button mat-menu-item (click)="showSharedTemplate(sharedFileTemplate, file)">Compartir Archivo</button>
-          <button mat-menu-item>Eliminar Archivo</button>
-        </ng-template>
-      </mat-menu>
+<!--      <mat-menu #fileOptionsMenu="matMenu">-->
+<!--        <ng-template matMenuContent let-file="file">-->
+<!--          <button mat-menu-item (click)="showFile(file.name)">Abrir Archivo</button>-->
+<!--          <button mat-menu-item>Compartir Archivo</button>-->
+<!--          <button mat-menu-item>Eliminar Archivo</button>-->
+<!--        </ng-template>-->
+<!--      </mat-menu>-->
     </div>
   </div>
 </div>
 
+
+<!--TEMPLATES-->
 <ng-template #createDirectoryTemplate>
   <div class="form-container container">
     <h2>Crear Directorio</h2>
@@ -55,8 +59,8 @@
       <mat-error *ngIf="createDirectoryControl.invalid">El nombre del directorio es obligatorio</mat-error>
     </mat-form-field>
     <div>
-      <button mat-flat-button color="warn" type="button" mat-dialog-close style="margin-right: 10px;">Cancelar</button>
       <button (click)="createDirectory()" [disabled]="createDirectoryControl.invalid" mat-flat-button color="primary">Crear</button>
+      <button mat-flat-button color="warn" type="button" mat-dialog-close style="margin-left: 10px;">Cancelar</button>
     </div>
   </div>
 </ng-template>
@@ -70,8 +74,38 @@
       <mat-error *ngIf="shareFileControl.invalid">El nombre del usuario es obligatorio</mat-error>
     </mat-form-field>
     <div>
-      <button mat-flat-button color="warn" type="button" mat-dialog-close style="margin-right: 10px;">Cancelar</button>
       <button (click)="shareFile(data)" [disabled]="shareFileControl.invalid" mat-flat-button color="primary">Compartir</button>
+      <button mat-flat-button color="warn" type="button" mat-dialog-close style="margin-left: 10px;">Cancelar</button>
     </div>
   </div>
+</ng-template>
+
+<ng-template #directoryOptionsTemplate let-data>
+  <mat-nav-list>
+    <a mat-list-item>
+      <span matListItemTitle>Eliminar Directorio</span>
+      <span matLine>Elimine el directorio y todo su contenido.</span>
+    </a>
+    <a mat-list-item>
+      <span matListItemTitle>Mover Directorio</span>
+      <span matLine>Cambie la ruta del directorio.</span>
+    </a>
+  </mat-nav-list>
+</ng-template>
+
+<ng-template #fileOptionsTemplate let-data>
+  <mat-nav-list>
+    <a mat-list-item>
+      <span matListItemTitle>Eliminar Archivo</span>
+      <span matLine>Elimine el archivo.</span>
+    </a>
+    <a mat-list-item>
+      <span matListItemTitle>Mover Archivo</span>
+      <span matLine>Cambie la ruta del archivo.</span>
+    </a>
+    <a mat-list-item (click)="showSharedTemplate(sharedFileTemplate, data)">
+      <span matListItemTitle>Compartir Archivo</span>
+      <span matLine>Comparta archivos con sus compañeros.</span>
+    </a>
+  </mat-nav-list>
 </ng-template>

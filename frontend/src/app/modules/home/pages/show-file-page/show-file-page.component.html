@@ -17,7 +17,7 @@
       <label>Linea: {{rows}} Columna: {{cols}}</label>
       <mat-form-field class="textarea-field" appearance="outline">
         <mat-label>Contenido</mat-label>
-        <textarea matInput formControlName="content" [(ngModel)]="content" (keyup)="countRowsCols()" rows="20"></textarea>
+        <textarea matInput formControlName="content" (keyup)="countRowsCols()" rows="20"></textarea>
       </mat-form-field>
     </div>
   </form>
