@@ -1,8 +1,11 @@
+.dialog-container {
+  width: 750px;
+}
+
 .option-container {
   display: flex;
   align-items: center;
-  justify-content: left;
-  margin-bottom: 15px;
+  justify-content: right;
 }
 
 .documents-container {
@@ -17,8 +20,4 @@
   justify-content: left;
   margin: 10px 10px;
   /*padding: 0 15px;*/
-}
-
-.mat-icon-class {
-  transform: scale(1.5);
 }

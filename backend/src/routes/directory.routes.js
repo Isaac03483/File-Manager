@@ -5,5 +5,7 @@ const router = express.Router();
 
 router.get('/directories/:username', DirectoryController.findUserDirectories);
 router.post('/directories', DirectoryController.createDirectory);
+router.get('/directories/move/:username/:name', DirectoryController.findAllWithout);
+router.put('/directories', DirectoryController.moveDirectory);
 
 module.exports = router;

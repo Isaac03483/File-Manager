@@ -25,4 +25,19 @@ export class DirectoryService {
 
     return this.httpClient.post(`${this.URL}/directories`, body);
   }
+
+  findAllWithout(username: string, name: string, path: string) : Observable<any> {
+    return this.httpClient.get(`${this.URL}/directories/move/${username}/${name}?path=${path}`)
+  }
+
+  moveDirectory(username: string, name: string, oldPath: string, newPath: string) : Observable<any> {
+    const body = {
+      username,
+      name,
+      oldPath,
+      newPath
+    }
+
+    return this.httpClient.put(`${this.URL}/directories`, body);
+  }
 }

@@ -17,6 +17,9 @@ import { ShowSharedFilePageComponent } from './pages/show-shared-file-page/show-
 import {MatListModule} from "@angular/material/list";
 import {MatLineModule} from "@angular/material/core";
 import {MatBottomSheet, MatBottomSheetModule} from "@angular/material/bottom-sheet";
+import { ShowDeletedFilesPageComponent } from './pages/show-deleted-files-page/show-deleted-files-page.component';
+import { MoveDirectoryDialogComponent } from './components/move-directory-dialog/move-directory-dialog.component';
+import { MoveFileDialogComponent } from './components/move-file-dialog/move-file-dialog.component';
 
 
 @NgModule({
@@ -26,7 +29,10 @@ import {MatBottomSheet, MatBottomSheetModule} from "@angular/material/bottom-she
      ShowDocumentsPageComponent,
      ShowSharedDocumentsPageComponent,
      ShowFilePageComponent,
-     ShowSharedFilePageComponent
+     ShowSharedFilePageComponent,
+     ShowDeletedFilesPageComponent,
+     MoveDirectoryDialogComponent,
+     MoveFileDialogComponent
   ],
   imports: [
     CommonModule,

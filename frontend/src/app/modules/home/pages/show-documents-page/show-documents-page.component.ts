@@ -9,6 +9,8 @@ import {MatMenu, MatMenuTrigger} from "@angular/material/menu";
 import {Router} from "@angular/router";
 import {SharedFileService} from "../../../../services/document/shared-file.service";
 import {MatBottomSheet, MatBottomSheetRef} from "@angular/material/bottom-sheet";
+import {MoveDirectoryDialogComponent} from "../../components/move-directory-dialog/move-directory-dialog.component";
+import {MoveFileDialogComponent} from "../../components/move-file-dialog/move-file-dialog.component";
 
 @Component({
   selector: 'app-show-documents-page',
@@ -26,6 +28,10 @@ export class ShowDocumentsPageComponent implements OnInit {
   shareFileControl: FormControl = new FormControl('', Validators.required);
   matBottomSheetRef!: MatBottomSheetRef;
 
+  directoriesMove: any[] = [];
+  currentMove: string = 'root';
+  previousMove: string = '';
+
   @ViewChild(FormGroupDirective) formDir!: FormGroupDirective;
 
 
@@ -34,6 +40,7 @@ export class ShowDocumentsPageComponent implements OnInit {
               private matBottomSheet: MatBottomSheet) {
 
   }
+
   ngOnInit(): void {
     this.username = this.cookieService.get('username');
 
@@ -80,7 +87,7 @@ export class ShowDocumentsPageComponent implements OnInit {
   }
 
   createDirectory() {
-    const { directoryName } = this.createDirectoryControl.value;
+    const directoryName = this.createDirectoryControl.value;
 
     this.directoryService.createDirectory(this.username, this.currentPath, directoryName)
       .subscribe({
@@ -121,7 +128,7 @@ export class ShowDocumentsPageComponent implements OnInit {
   }
 
   showFile(name?: string) {
-    this.router.navigate(['/','home','show-file'], name ?
+    this.router.navigate(['/', 'home', 'show-file'], name ?
       {queryParams: {filename: name, path: this.currentPath}} :
       {queryParams: {filename: '', path: this.currentPath}}
     );
@@ -132,7 +139,7 @@ export class ShowDocumentsPageComponent implements OnInit {
       .subscribe({
         next: val => {
           this.shareFileControl.reset();
-          if(this.matBottomSheetRef) {
+          if (this.matBottomSheetRef) {
             this.matBottomSheetRef.dismiss();
           }
         }
@@ -167,6 +174,67 @@ export class ShowDocumentsPageComponent implements OnInit {
 
   showOptionsTemplate($event: MouseEvent, directoryOptionsTemplate: TemplateRef<any>, data: any) {
     $event.preventDefault();
-    this.matBottomSheetRef = this.matBottomSheet.open(directoryOptionsTemplate, { data });
+    this.matBottomSheetRef = this.matBottomSheet.open(directoryOptionsTemplate, {data});
+  }
+
+  deleteFile(data: any) {
+    console.log(data);
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: "Se enviará el archivo a la papelera.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3f51b5",
+      cancelButtonColor: "#f44336",
+      confirmButtonText: "Eliminar",
+      cancelButtonText: "Cancelar"
+    }).then(result => {
+      if (result.isConfirmed) {
+        this.fileService.deleteFile(this.username, data.path, data.name)
+          .subscribe({
+            next: response => {
+              Swal.fire({
+                title: "Eliminado!",
+                text: "El archivo se eliminó correctamente!",
+                icon: "success",
+                showConfirmButton: false,
+                timer: 2000
+              })
+
+              this.getFiles();
+            }
+          });
+      }
+    });
+
+    if (this.matBottomSheetRef) {
+      this.matBottomSheetRef.dismiss();
+    }
+  }
+
+  openMoveDirectoryDialog(data: any) {
+    this.matDialog.open(MoveDirectoryDialogComponent, {data})
+      .afterClosed().subscribe({
+      next: val => {
+        if (this.matBottomSheetRef) {
+          this.matBottomSheetRef.dismiss();
+        }
+
+        this.getDirectories();
+        this.getFiles();
+      }
+    });
+  }
+
+  openMoveFileDialog(data: any) {
+    this.matDialog.open(MoveFileDialogComponent, { data })
+      .afterClosed().subscribe({
+      next: val => {
+        if (this.matBottomSheetRef) {
+          this.matBottomSheetRef.dismiss();
+        }
+        this.getFiles();
+      }
+    })
   }
 }

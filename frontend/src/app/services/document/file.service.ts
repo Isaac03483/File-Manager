@@ -29,14 +29,29 @@ export class FileService {
     return this.httpClient.post(`${this.URL}/files`, body);
   }
 
-  updateFile(username: string, pastName: string, path: string, name: string, content: string) : Observable<any> {
+  updateFile(username: string, oldName: string, path: string, name: string, content: string) : Observable<any> {
     const body = {
       username,
-      pastName,
+      oldName,
       path,
       name,
       content
     }
     return this.httpClient.put(`${this.URL}/files`, body);
+  }
+
+  deleteFile(username: string, path: string, name: string) : Observable<any> {
+    return this.httpClient.delete(`${this.URL}/files/${username}/${name}?path=${path}`)
+  }
+
+  moveFile(username: string, name: string, oldPath: string, newPath: string) : Observable<any> {
+    const body = {
+      username,
+      name,
+      oldPath,
+      newPath
+    }
+
+    return this.httpClient.put(`${this.URL}/files/move`, body);
   }
 }

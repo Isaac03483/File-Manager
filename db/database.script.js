@@ -2,7 +2,9 @@ use cloudArch;
 
 db.createCollection('users');
 db.createCollection('directories');
-db.createCollection('sharedFiles');
+db.createCollection('files');
+db.createCollection('sharedfiles');
+db.createCollection('deletedfiles');
 
 db.users.insertMany([
     {

@@ -1,0 +1,29 @@
+<div class="container dialog-container">
+  <div class="option-container">
+    <button (click)="goBack()" mat-button *ngIf="this.previousPath !== ''">
+      <mat-icon>keyboard_backspace</mat-icon>
+      volver
+    </button>
+    <button mat-flat-button (click)="moveFile()">
+      <mat-icon>arrow_downward</mat-icon>
+      Mover aqui
+    </button>
+    <button style="margin-left: 10px;" mat-flat-button color="warn" mat-dialog-close>Cancelar</button>
+  </div>
+  <h1 mat-dialog-title>Moviendo: {{ data.name }}</h1>
+  <div *ngIf="directories.length > 0; else emptyDirectoryTemplate">
+    <h2>Directorios</h2>
+    <div class="documents-container" *ngFor="let directory of directories">
+      <button class="document-button" mat-button (click)="goTo(directory)">
+        <mat-icon class="mat-icon-class">folder</mat-icon>
+        <span style="margin-left: 5px">{{ directory.name }}</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!--TEMPLATES-->
+
+<ng-template #emptyDirectoryTemplate >
+  <h3 style="margin: 30px;">Ups! parece que no tienes directorios aquí!</h3>
+</ng-template>

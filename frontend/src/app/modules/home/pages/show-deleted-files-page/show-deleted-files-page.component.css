@@ -1,10 +1,3 @@
-.option-container {
-  display: flex;
-  align-items: center;
-  justify-content: left;
-  margin-bottom: 15px;
-}
-
 .documents-container {
   display: inline-block;
 }
@@ -19,6 +12,15 @@
   /*padding: 0 15px;*/
 }
 
-.mat-icon-class {
+mat-icon {
   transform: scale(1.5);
 }
+
+.textarea-field {
+  width: 100vh;
+}
+
+textarea {
+  resize: none;
+}
+

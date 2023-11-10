@@ -44,6 +44,7 @@ export class AuthPageComponent {
         console.log(response);
         this.authService.sendUserData.emit(response);
         this.cookieService.set('username', response.username);
+        this.cookieService.set('type', response.type);
         this.router.navigate(['/', 'home']);
       },
       error: error => {

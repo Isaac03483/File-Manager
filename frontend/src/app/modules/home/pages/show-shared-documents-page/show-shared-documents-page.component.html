@@ -5,7 +5,7 @@
       <button class="document-button" mat-button (contextmenu)="showTemplate($event, bottomSheetTemplate, file)"
               (click)="showFile(file.name)">
         <mat-icon>insert_drive_file</mat-icon>
-        {{ file.name }}
+        <span style="margin-left: 5px">{{ file.name }}</span>
       </button>
     </div>
   </div>

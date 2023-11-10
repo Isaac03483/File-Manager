@@ -3,6 +3,7 @@ import {AuthService} from "../../../../services/auth/auth.service";
 import {DirectoryService} from "../../../../services/document/directory.service";
 import {ActivatedRoute} from "@angular/router";
 import {CookieService} from "ngx-cookie-service";
+import {UserService} from "../../../../services/user/user.service";
 
 @Component({
   selector: 'app-home-page',
@@ -11,7 +12,14 @@ import {CookieService} from "ngx-cookie-service";
 })
 export class HomePageComponent implements OnInit {
 
-  constructor() {
+  showTrashButton: boolean = false;
+
+  constructor(private cookieService: CookieService) {
+    const type: string = this.cookieService.get('type');
+
+    if(type === 'admin') {
+      this.showTrashButton = true;
+    }
   }
 
   ngOnInit(): void {
