@@ -12,9 +12,13 @@
       {{user.username}}
     </button>
     <mat-menu #menu='matMenu'>
-      <button mat-flat-button (click)="logout()">
+      <button mat-menu-item (click)="showUserInfo()">
+        <mat-icon>account_box</mat-icon>
+        <span>Ver información</span>
+      </button>
+      <button mat-menu-item (click)="logout()">
         <mat-icon>logout</mat-icon>
-        Cerrar Sesión
+        <span>Cerrar Sesión</span>
       </button>
     </mat-menu>
   </div>

@@ -40,4 +40,18 @@ export class DirectoryService {
 
     return this.httpClient.put(`${this.URL}/directories`, body);
   }
+
+  deleteDirectory(username: string, name: string, path: string) : Observable<any> {
+    return this.httpClient.delete(`${this.URL}/directories/${username}/${name}?path=${path}`);
+  }
+
+  copyDirectory(username: string, name: string, path: string, newPath: string) : Observable<any> {
+    const body = {
+      username,
+      name,
+      path,
+      newPath
+    }
+    return this.httpClient.post(`${this.URL}/directories/copy`, body);
+  }
 }

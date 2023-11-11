@@ -4,13 +4,13 @@
       <mat-icon>keyboard_backspace</mat-icon>
       volver
     </button>
-    <button (click)="moveDirectory()" mat-button [disabled]="this.currentPath === data.path">
+    <button mat-flat-button (click)="copyFile()">
       <mat-icon>arrow_downward</mat-icon>
-      Mover aqui
+      Copiar aqui
     </button>
     <button style="margin-left: 10px;" mat-flat-button color="warn" mat-dialog-close>Cancelar</button>
   </div>
-  <h1 mat-dialog-title>Moviendo directorio: {{ data.name }}</h1>
+  <h1 mat-dialog-title>Copiando archivo: {{ data.name }}</h1>
   <div *ngIf="directories.length > 0; else emptyDirectoryTemplate">
     <h2>Directorios</h2>
     <div class="documents-container" *ngFor="let directory of directories">

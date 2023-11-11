@@ -11,15 +11,25 @@
     <mat-menu #createMenu="matMenu">
       <button mat-menu-item (click)="createNewDirectory(createDirectoryTemplate)">
         <mat-icon>create_new_folder</mat-icon>
-        Crear Carpeta
+        <span>Crear Carpeta</span>
       </button>
       <button mat-menu-item (click)="showFile()">
         <mat-icon>note_add</mat-icon>
-        crear Documento
+        <span>Crear Documento</span>
       </button>
     </mat-menu>
   </div>
-  <div *ngIf="directories.length > 0; else emptyDirectoryTemplate">
+
+  <div *ngIf="directories.length === 0 && files.length === 0; else documentsTemplate">
+    <h2 style="margin: 30px;">Ups! parece que este directorio está vacío!</h2>
+  </div>
+</div>
+
+
+<!--TEMPLATES-->
+
+<ng-template #documentsTemplate>
+  <div *ngIf="directories.length > 0">
     <h2>Directorios</h2>
     <div class="documents-container" *ngFor="let directory of directories">
       <button class="document-button" mat-button (click)="goTo(directory)"
@@ -29,7 +39,7 @@
       </button>
     </div>
   </div>
-  <div *ngIf="files.length > 0; else emptyFileTemplate">
+  <div *ngIf="files.length > 0">
     <h2>Archivos</h2>
     <div class="documents-container" *ngFor="let file of files">
       <button class="document-button" mat-button (click)="showFile(file.name)"
@@ -39,17 +49,6 @@
       </button>
     </div>
   </div>
-</div>
-
-
-<!--TEMPLATES-->
-<ng-template #emptyDirectoryTemplate>
-  <h2 style="margin: 30px;">Ups! parece que no tienes directorios aquí!</h2>
-</ng-template>
-
-<ng-template #emptyFileTemplate>
-  <h2 style="margin: 30px;">Ups! parece que no tienes archivos aquí!</h2>
-
 </ng-template>
 
 <ng-template #createDirectoryTemplate>
@@ -84,9 +83,13 @@
 
 <ng-template #directoryOptionsTemplate let-data>
   <mat-nav-list>
-    <a mat-list-item>
+    <a mat-list-item (click)="deleteDirectory(data)">
       <span matListItemTitle>Eliminar Directorio</span>
       <span matLine>Elimine el directorio y todo su contenido.</span>
+    </a>
+    <a mat-list-item (click)="openCopyDirectoryDialog(data)">
+      <span matListItemTitle>Copiar Directorio</span>
+      <span matLine>Copia el directorio y todo su contenido a otro directorio.</span>
     </a>
     <a mat-list-item (click)="openMoveDirectoryDialog(data)">
       <span matListItemTitle>Mover Directorio</span>
@@ -100,6 +103,10 @@
     <a mat-list-item (click)="deleteFile(data)">
       <span matListItemTitle>Eliminar Archivo</span>
       <span matLine>Elimine el archivo.</span>
+    </a>
+    <a mat-list-item (click)="openCopyFileDialog(data)">
+      <span matListItemTitle>Copiar Archivo</span>
+      <span matLine>Copie el archivo a otro directorio.</span>
     </a>
     <a mat-list-item (click)="openMoveFileDialog(data)">
       <span matListItemTitle>Mover Archivo</span>

@@ -1,0 +1,26 @@
+<div class="container form-container">
+  <form class="form-container" [formGroup]="infoForm" (ngSubmit)="updateInfo()">
+    <h1>Mi Información</h1>
+    <mat-form-field class="form-field" appearance="outline">
+      <mat-label>Nombre de Usuario</mat-label>
+      <input type="text" formControlName="username" matInput readonly>
+    </mat-form-field>
+    <mat-form-field class="form-field" appearance="outline">
+      <mat-label>Nombre de empleado</mat-label>
+      <input type="text" formControlName="employeeName" matInput>
+    </mat-form-field>
+    <mat-form-field class="form-field" appearance="outline">
+      <mat-label>Contraseña</mat-label>
+      <input formControlName="password" matInput [type]="hide? 'password': 'text'">
+      <button mat-icon-button matSuffix type="button" (click)="hide = !hide">
+        <mat-icon>{{hide? 'visibility_off': 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-checkbox formControlName="type">Administrador</mat-checkbox>
+
+    <div style="margin-top: 15px;">
+      <button mat-flat-button color="primary">Actualizar</button>
+      <button mat-dialog-close type="button" mat-flat-button color="warn" style="margin-left: 10px;">Cancelar</button>
+    </div>
+  </form>
+</div>

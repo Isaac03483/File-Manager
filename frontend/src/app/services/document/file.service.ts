@@ -54,4 +54,14 @@ export class FileService {
 
     return this.httpClient.put(`${this.URL}/files/move`, body);
   }
+
+  copyFile(username: string, name: string, path: string, newPath: string) : Observable<any> {
+    const body = {
+      username,
+      name,
+      path,
+      newPath
+    }
+    return this.httpClient.post(`${this.URL}/files/copy`, body);
+  }
 }

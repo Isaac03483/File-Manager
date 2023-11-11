@@ -20,6 +20,8 @@ import {MatBottomSheet, MatBottomSheetModule} from "@angular/material/bottom-she
 import { ShowDeletedFilesPageComponent } from './pages/show-deleted-files-page/show-deleted-files-page.component';
 import { MoveDirectoryDialogComponent } from './components/move-directory-dialog/move-directory-dialog.component';
 import { MoveFileDialogComponent } from './components/move-file-dialog/move-file-dialog.component';
+import { CopyDirectoryDialogComponent } from './components/copy-directory-dialog/copy-directory-dialog.component';
+import { CopyFileDialogComponent } from './components/copy-file-dialog/copy-file-dialog.component';
 
 
 @NgModule({
@@ -32,7 +34,9 @@ import { MoveFileDialogComponent } from './components/move-file-dialog/move-file
      ShowSharedFilePageComponent,
      ShowDeletedFilesPageComponent,
      MoveDirectoryDialogComponent,
-     MoveFileDialogComponent
+     MoveFileDialogComponent,
+     CopyDirectoryDialogComponent,
+     CopyFileDialogComponent
   ],
   imports: [
     CommonModule,

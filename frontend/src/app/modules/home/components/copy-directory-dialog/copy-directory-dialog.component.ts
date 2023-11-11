@@ -6,11 +6,12 @@ import {DirectoryService} from "../../../../services/document/directory.service"
 import Swal from "sweetalert2";
 
 @Component({
-  selector: 'app-move-directory-dialog',
-  templateUrl: './move-directory-dialog.component.html',
-  styleUrls: ['./move-directory-dialog.component.css']
+  selector: 'app-copy-directory-dialog',
+  templateUrl: './copy-directory-dialog.component.html',
+  styleUrls: ['./copy-directory-dialog.component.css']
 })
-export class MoveDirectoryDialogComponent implements OnInit {
+export class CopyDirectoryDialogComponent implements OnInit {
+
   directories: any[] = [];
   username: string = '';
   name: string = '';
@@ -61,13 +62,13 @@ export class MoveDirectoryDialogComponent implements OnInit {
     this.getDirectories();
   }
 
-  moveDirectory() {
-    this.directoryService.moveDirectory(this.username, this.data.name, this.data.path, this.currentPath)
+  copyDirectory() {
+    this.directoryService.copyDirectory(this.username, this.data.name, this.data.path, this.currentPath)
       .subscribe({
         next: res => {
           Swal.fire({
-            title: "Directorio movido!",
-            text: "Se ha movido el directorio exitosamente!",
+            title: "Directorio copiado!",
+            text: "Se ha copiado el directorio exitosamente!",
             icon: "success",
             showConfirmButton: false,
             timer: 2000
@@ -78,5 +79,10 @@ export class MoveDirectoryDialogComponent implements OnInit {
           console.log(err);
         }
       })
+  }
+
+  hasDuplicate() : boolean {
+    const duplicate = this.directories.filter(directory => directory.name === this.data.name);
+    return duplicate.length > 0;
   }
 }

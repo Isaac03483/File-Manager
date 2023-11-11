@@ -12,12 +12,14 @@ import {MatDialogModule} from "@angular/material/dialog";
 import {MatInputModule} from "@angular/material/input";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {ReactiveFormsModule} from "@angular/forms";
+import { ShowUserInfoComponent } from './components/show-user-info/show-user-info.component';
 
 
 
 @NgModule({
   declarations: [
     NavBarComponent,
+    ShowUserInfoComponent,
   ],
   exports: [
     NavBarComponent,

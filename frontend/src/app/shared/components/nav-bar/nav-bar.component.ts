@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {NavigationEnd, Router} from "@angular/router";
 import {AuthService} from "../../../services/auth/auth.service";
+import {MatDialog} from "@angular/material/dialog";
+import {ShowUserInfoComponent} from "../show-user-info/show-user-info.component";
 
 @Component({
   selector: 'app-nav-bar',
@@ -11,7 +13,7 @@ export class NavBarComponent implements OnInit {
   user: any;
 
   showButtons: boolean = false;
-  constructor(private router: Router, private authService: AuthService) {
+  constructor(private router: Router, private authService: AuthService, private matDialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -38,5 +40,9 @@ export class NavBarComponent implements OnInit {
   logout() {
     this.user = undefined;
     this.router.navigate(['/', 'auth']);
+  }
+
+  showUserInfo() {
+    this.matDialog.open(ShowUserInfoComponent);
   }
 }

@@ -24,7 +24,7 @@ export class ShowFilePageComponent implements OnInit {
               private cookieService: CookieService) {
 
     this.fileForm = this.formBuilder.group({
-      name: [''],
+      name: ['', [Validators.pattern('[a-zA-Z0-9_]+(\.txt|\.html)'), Validators.required]],
       content: ['']
     })
   }

@@ -44,4 +44,8 @@ export class UserService {
 
     return this.httpClient.put(`${this.URL}/users`, body);
   }
+
+  findUserByUsername(username: string) : Observable<any> {
+    return this.httpClient.get(`${this.URL}/users/${username}`);
+  }
 }

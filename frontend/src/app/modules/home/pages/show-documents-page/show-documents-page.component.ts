@@ -11,6 +11,8 @@ import {SharedFileService} from "../../../../services/document/shared-file.servi
 import {MatBottomSheet, MatBottomSheetRef} from "@angular/material/bottom-sheet";
 import {MoveDirectoryDialogComponent} from "../../components/move-directory-dialog/move-directory-dialog.component";
 import {MoveFileDialogComponent} from "../../components/move-file-dialog/move-file-dialog.component";
+import {CopyDirectoryDialogComponent} from "../../components/copy-directory-dialog/copy-directory-dialog.component";
+import {CopyFileDialogComponent} from "../../components/copy-file-dialog/copy-file-dialog.component";
 
 @Component({
   selector: 'app-show-documents-page',
@@ -236,5 +238,65 @@ export class ShowDocumentsPageComponent implements OnInit {
         this.getFiles();
       }
     })
+  }
+
+  openCopyDirectoryDialog(data: any) {
+    this.matDialog.open(CopyDirectoryDialogComponent, { data })
+      .afterClosed().subscribe({
+      next: val => {
+        if (this.matBottomSheetRef) {
+          this.matBottomSheetRef.dismiss();
+        }
+        this.getDirectories();
+        this.getFiles();
+      }
+    })
+  }
+
+  openCopyFileDialog(data: any) {
+    this.matDialog.open(CopyFileDialogComponent, { data })
+      .afterClosed().subscribe({
+      next: val => {
+        if (this.matBottomSheetRef) {
+          this.matBottomSheetRef.dismiss();
+        }
+        this.getDirectories();
+        this.getFiles();
+      }
+    })
+  }
+
+  deleteDirectory(data: any) {
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: "Se enviarán todos los archivos a la papelera.",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3f51b5",
+      cancelButtonColor: "#f44336",
+      confirmButtonText: "Eliminar",
+      cancelButtonText: "Cancelar"
+    }).then(result => {
+      if (result.isConfirmed) {
+        this.directoryService.deleteDirectory(this.username, data.name, data.path)
+          .subscribe({
+            next: response => {
+              Swal.fire({
+                title: "Eliminado!",
+                text: "La carpeta se eliminó correctamente!",
+                icon: "success",
+                showConfirmButton: false,
+                timer: 2000
+              })
+
+              this.getDirectories();
+            }
+          });
+      }
+    });
+
+    if (this.matBottomSheetRef) {
+      this.matBottomSheetRef.dismiss();
+    }
   }
 }
