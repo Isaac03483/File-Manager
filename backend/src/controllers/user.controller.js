@@ -1,9 +1,9 @@
 const User = require('../models/User');
 
 const findUser = async (req, res) => {
-    const username = req.body.username;
-    const password = req.body.password;
-    const user  = await User.findOne({username: username});
+    const username = req.params.username;
+    const password = req.params.password;
+    const user = await User.findOne({username: username});
 
     if(!user) {
         res.status(404).send('user not found');
@@ -18,8 +18,16 @@ const findUser = async (req, res) => {
 
     res.json({username: user.username, employeeName: user.employeeName, type: user.type});
 
-
 };
+
+const findUserByUsername = async (req, res) => {
+    const username = req.params.username;
+
+    const user = await User.findOne({ username: username });
+
+    res.json(user);
+
+}
 
 const saveUser = async (req, res) => {
     const username = req.body.username;
@@ -74,5 +82,6 @@ module.exports = {
     saveUser,
     deleteUser,
     findAll,
-    updateUser
+    updateUser,
+    findUserByUsername
 }

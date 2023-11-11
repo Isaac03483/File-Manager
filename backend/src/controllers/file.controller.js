@@ -83,7 +83,7 @@ const deleteFileByName = async (req, res) => {
 
 };
 
-const moveFileWithPath = async (req, res) => {
+const moveFile = async (req, res) => {
     const username = req.body.username;
     const name = req.body.name;
     const oldPath = req.body.oldPath;
@@ -94,11 +94,29 @@ const moveFileWithPath = async (req, res) => {
     res.json(moved);
 };
 
+const copyFile = async (req, res) => {
+    const username = req.body.username;
+    const name = req.body.name;
+    const path = req.body.path;
+    const newPath = req.body.newPath;
+
+    const file = await File.findOne({ username: username, name: name, path: path });
+
+    const copy = new File({
+        username: username, name: name, path: newPath, content: file.content
+    });
+
+    const saved = await copy.save();
+
+    res.json(saved);
+}
+
 module.exports = {
     saveFile,
     updateFile,
     findUserFiles,
     findFileByName,
     deleteFileByName,
-    moveFileWithPath
+    moveFile,
+    copyFile
 }

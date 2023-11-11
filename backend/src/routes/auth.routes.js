@@ -4,6 +4,6 @@ const UserController = require('../controllers/user.controller');
 
 const router = express.Router();
 
-router.post('/auth', UserController.findUser);
+router.get('/auth/:username/:password', UserController.findUser);
 
 module.exports = router;

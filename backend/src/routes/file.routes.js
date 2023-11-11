@@ -8,6 +8,7 @@ router.get('/files/find/:username/:name', FileController.findFileByName);
 router.post('/files', FileController.saveFile);
 router.put('/files', FileController.updateFile);
 router.delete('/files/:username/:name', FileController.deleteFileByName);
-router.put('/files/move', FileController.moveFileWithPath);
+router.put('/files/move', FileController.moveFile);
+router.post('/files/copy', FileController.copyFile);
 
 module.exports = router;
