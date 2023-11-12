@@ -75,7 +75,13 @@ export class MoveDirectoryDialogComponent implements OnInit {
           this.matDialog.closeAll();
         },
         error: err => {
-          console.log(err);
+          Swal.fire({
+            title: "Error!",
+            text: err.error,
+            icon: "error",
+            showConfirmButton: false,
+            timer: 2000
+          })
         }
       })
   }

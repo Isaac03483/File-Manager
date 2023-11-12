@@ -10,7 +10,7 @@ const saveFile = async (req, res) => {
     const find = await File.findOne({ username: username, path: path, name: name });
 
     if(find) {
-        res.status(400).send('file already exists');
+        res.status(400).send('Ya existe un archivo con ese nombre');
         return;
     }
 
@@ -34,7 +34,7 @@ const updateFile = async (req, res) => {
         const find = await File.findOne({ username: username, path: path, name: name });
 
         if(find) {
-            res.status(400).send('file already exists');
+            res.status(400).send('Ya existe un archivo con ese nombre');
             return;
         }
 
@@ -89,6 +89,13 @@ const moveFile = async (req, res) => {
     const oldPath = req.body.oldPath;
     const newPath = req.body.newPath;
 
+    const file = await File.findOne({username: username, name: name, path: newPath});
+
+    if(file) {
+        res.status(400).send('Ya existe un archivo con ese nombre');
+        return;
+    }
+
     const moved = await File.updateOne({username: username, name: name, path: oldPath},
         { $set: { path: newPath } });
     res.json(moved);
@@ -99,6 +106,13 @@ const copyFile = async (req, res) => {
     const name = req.body.name;
     const path = req.body.path;
     const newPath = req.body.newPath;
+
+    const find = await File.findOne({ username: username, name: name, path: newPath });
+
+    if(find) {
+        res.status(400).send('Ya existe un archivo con ese nombre');
+        return;
+    }
 
     const file = await File.findOne({ username: username, name: name, path: path });
 

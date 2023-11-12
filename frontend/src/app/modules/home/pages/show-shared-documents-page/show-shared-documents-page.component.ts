@@ -20,7 +20,7 @@ export class ShowSharedDocumentsPageComponent implements OnInit {
   files: any[] = [];
   matBottomSheetRef!: MatBottomSheetRef;
 
-  constructor(private cookieService: CookieService, private router: Router,
+  constructor(private cookieService: CookieService, private router: Router, private matDialog: MatDialog,
               private sharedFileService: SharedFileService, private matBottomSheet: MatBottomSheet) {
 
   }
@@ -86,5 +86,16 @@ export class ShowSharedDocumentsPageComponent implements OnInit {
     if(this.matBottomSheetRef) {
       this.matBottomSheetRef.dismiss();
     }
+  }
+
+  showProperties(templateRef: TemplateRef<any>, data: any) {
+    this.matDialog.open(templateRef, { data }).afterClosed()
+      .subscribe({
+        next: val => {
+          if(this.matBottomSheetRef) {
+            this.matBottomSheetRef.dismiss();
+          }
+        }
+      })
   }
 }

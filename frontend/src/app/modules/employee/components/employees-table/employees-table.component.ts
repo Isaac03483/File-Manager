@@ -1,16 +1,17 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
+import {AfterViewInit, Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import {MatTableDataSource} from "@angular/material/table";
 import {UserService} from "../../../../services/user/user.service";
 import Swal from "sweetalert2";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {MatDialog} from "@angular/material/dialog";
+import {MatPaginator} from "@angular/material/paginator";
 
 @Component({
   selector: 'app-employees-table',
   templateUrl: './employees-table.component.html',
   styleUrls: ['./employees-table.component.css']
 })
-export class EmployeesTableComponent implements OnInit{
+export class EmployeesTableComponent implements OnInit, AfterViewInit {
 
   displayedColumns: string[] = ['username', 'employeeName', 'type', 'options'];
   dataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
@@ -18,8 +19,14 @@ export class EmployeesTableComponent implements OnInit{
   hide: boolean = true;
   userToUpdate: any;
 
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
   constructor(private userService: UserService, private matDialog: MatDialog, private formBuilder: FormBuilder) {
 
+  }
+
+  ngAfterViewInit(): void {
+    this.dataSource.paginator = this.paginator;
   }
 
   ngOnInit(): void {
@@ -32,17 +39,29 @@ export class EmployeesTableComponent implements OnInit{
   }
 
   delete(user: any) {
-    console.log(user);
-    this.userService.deleteUser(user.username).subscribe({
-      next: response => {
-        Swal.fire({
-          title: "Eliminado!",
-          icon: "success",
-          text: "Usuario eliminado con éxito",
-          showConfirmButton: false,
-          timer: 2000
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: `Realmente desea eliminar a: ${user.username}.`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3f51b5",
+      cancelButtonColor: "#f44336",
+      confirmButtonText: "Eliminar",
+      cancelButtonText: "Cancelar"
+    }).then(result => {
+      if(result.isConfirmed) {
+        this.userService.deleteUser(user.username).subscribe({
+          next: response => {
+            Swal.fire({
+              title: "Eliminado!",
+              icon: "success",
+              text: "Usuario eliminado con éxito",
+              showConfirmButton: false,
+              timer: 2000
+            })
+            this.findAll();
+          }
         })
-        this.findAll();
       }
     })
   }
@@ -50,8 +69,8 @@ export class EmployeesTableComponent implements OnInit{
   findAll() {
     this.userService.findAll().subscribe({
       next: response => {
-        console.log(response);
-        this.dataSource = response;
+        // this.dataSource = new MatTableDataSource<any>(response);
+        this.dataSource.data = response;
       }
     })
   }
@@ -107,4 +126,8 @@ export class EmployeesTableComponent implements OnInit{
 
   }
 
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 }

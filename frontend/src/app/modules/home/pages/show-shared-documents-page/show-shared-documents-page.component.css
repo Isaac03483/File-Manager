@@ -15,3 +15,12 @@
 mat-icon {
   transform: scale(1.5);
 }
+
+.dialog-container {
+  width: 400px;
+  margin: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}

@@ -1,33 +1,40 @@
-<section class="mat-elevation-z3 table-container">
-  <table mat-table [dataSource]="this.dataSource">
+<div class="container">
+  <mat-form-field class="form-field" appearance="outline">
+    <mat-label>Filtrar</mat-label>
+    <input matInput (keyup)="applyFilter($event)">
+  </mat-form-field>
+  <div class="mat-elevation-z3 table-container">
+    <table mat-table [dataSource]="this.dataSource">
 
-    <ng-container matColumnDef="username">
-      <th mat-header-cell *matHeaderCellDef>Usuario</th>
-      <td mat-cell *matCellDef="let element">{{element.username}}</td>
-    </ng-container>
+      <ng-container matColumnDef="username">
+        <th mat-header-cell *matHeaderCellDef>Usuario</th>
+        <td mat-cell *matCellDef="let element">{{element.username}}</td>
+      </ng-container>
 
-    <ng-container matColumnDef="employeeName">
-      <th mat-header-cell *matHeaderCellDef>Nombre</th>
-      <td mat-cell *matCellDef="let element">{{element.employeeName}}</td>
-    </ng-container>
+      <ng-container matColumnDef="employeeName">
+        <th mat-header-cell *matHeaderCellDef>Nombre</th>
+        <td mat-cell *matCellDef="let element">{{element.employeeName}}</td>
+      </ng-container>
 
-    <ng-container matColumnDef="type">
-      <th mat-header-cell *matHeaderCellDef>Tipo</th>
-      <td mat-cell *matCellDef="let element">{{element.type}}</td>
-    </ng-container>
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef>Tipo</th>
+        <td mat-cell *matCellDef="let element">{{element.type}}</td>
+      </ng-container>
 
-    <ng-container matColumnDef="options">
-      <th mat-header-cell *matHeaderCellDef>Opciones</th>
-      <td mat-cell *matCellDef="let element">
-        <button mat-icon-button matTooltip="Actualizar" color="basic" (click)="updateUser(element, updateTemplate)"><mat-icon>create</mat-icon></button>
-        <button mat-icon-button matTooltip="Eliminar" color="warn" (click)="delete(element)"><mat-icon>delete</mat-icon></button>
-      </td>
-    </ng-container>
+      <ng-container matColumnDef="options">
+        <th mat-header-cell *matHeaderCellDef>Opciones</th>
+        <td mat-cell *matCellDef="let element">
+          <button mat-icon-button matTooltip="Actualizar" color="basic" (click)="updateUser(element, updateTemplate)"><mat-icon>create</mat-icon></button>
+          <button mat-icon-button matTooltip="Eliminar" color="warn" (click)="delete(element)"><mat-icon>delete</mat-icon></button>
+        </td>
+      </ng-container>
 
-    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
-</section>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+  </div>
+</div>
 
 <ng-template #updateTemplate let-data>
   <div class="dialog-container">
@@ -46,8 +53,8 @@
       </mat-form-field>
       <mat-checkbox formControlName="isAdmin" style="margin-bottom: 15px;">Administrador</mat-checkbox>
       <div>
-        <button type="button" mat-flat-button style="margin-right: 5px;" mat-dialog-close>Cancelar</button>
         <button type="submit" mat-flat-button color="primary">Actualizar</button>
+        <button type="button" mat-flat-button color="warn" style="margin-left: 10px;" mat-dialog-close>Cancelar</button>
       </div>
     </form>
   </div>

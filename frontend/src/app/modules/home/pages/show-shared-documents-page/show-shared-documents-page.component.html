@@ -1,5 +1,5 @@
 <div class="container">
-  <div>
+  <div *ngIf="files.length > 0; else showEmptyTemplate">
     <h2>Archivos compartidos</h2>
     <div class="documents-container" *ngFor="let file of files">
       <button class="document-button" mat-button (contextmenu)="showTemplate($event, bottomSheetTemplate, file)"
@@ -11,11 +11,41 @@
   </div>
 </div>
 
+<!--TEMPLATES-->
+
+<ng-template #showEmptyTemplate>
+  <h2>Parece que aún no se ha compartido ningún archivo</h2>
+</ng-template>
+
 <ng-template #bottomSheetTemplate let-data>
   <mat-nav-list>
+    <a mat-list-item (click)="showProperties(showPropertiesTemplate, data)">
+      <span matListItemTitle>Propiedades</span>
+      <span matLine>Vea las propiedades del archivo.</span>
+    </a>
     <a mat-list-item (click)="deleteFile(data)">
       <span matListItemTitle>Eliminar Archivo</span>
-      <span matLine>Elimine el archivo compartido</span>
+      <span matLine>Elimine el archivo compartido.</span>
     </a>
   </mat-nav-list>
 </ng-template>
+
+
+<ng-template #showPropertiesTemplate let-data>
+  <div class="dialog-container">
+    <h1 mat-dialog-title>Propiedades</h1>
+    <mat-dialog-content class="mat-typography">
+      <h2>Nombre del archivo:</h2>
+      <p>{{data.name}}.</p>
+      <h2>Compartido por:</h2>
+      <p>{{data?.usernameOrigin}}.</p>
+      <h2>Fecha:</h2>
+      <p>{{data.date | date:'dd-MM-yyyy'}}.</p>
+    </mat-dialog-content>
+    <mat-dialog-actions align="center">
+      <button mat-flat-button color="warn" mat-dialog-close>Cerrar</button>
+    </mat-dialog-actions>
+  </div>
+</ng-template>
+
+

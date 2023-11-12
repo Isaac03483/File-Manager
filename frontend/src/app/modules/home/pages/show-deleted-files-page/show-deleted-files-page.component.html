@@ -1,5 +1,5 @@
 <div class="container">
-  <div>
+  <div *ngIf="files.length > 0; else showEmptyTemplate">
     <h2>Archivos eliminados</h2>
     <div class="documents-container" *ngFor="let file of files">
       <button class="document-button" mat-button (click)="openDialog(showDeletedFileTemplate, file)">
@@ -12,6 +12,10 @@
 
 
 <!--TEMPLATES-->
+
+<ng-template #showEmptyTemplate>
+  <h2>La papelera está vacía!</h2>
+</ng-template>
 
 <ng-template #showDeletedFileTemplate let-data>
   <div class="container form-container">

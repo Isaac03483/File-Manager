@@ -71,7 +71,13 @@ export class CopyFileDialogComponent implements OnInit {
           this.matDialog.closeAll();
         },
         error: err => {
-
+          Swal.fire({
+            title: "Error!",
+            text: err.error,
+            icon: "error",
+            showConfirmButton: false,
+            timer: 2000
+          })
         }
       });
   }

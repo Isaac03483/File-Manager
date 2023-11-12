@@ -19,7 +19,7 @@ const createDirectory = async (req,res) => {
     const find = await Directory.findOne({ username: username, path: path, name: name });
 
     if(find) {
-        res.status(400).send('directory already exists');
+        res.status(400).send('Ya existe un directorio con ese nombre');
         return;
     }
 
@@ -45,6 +45,13 @@ const moveDirectory = async (req, res) => {
     const name = req.body.name;
     const oldPath = req.body.oldPath;
     const newPath = req.body.newPath;
+
+    const find = await Directory.findOne({ username: username, name: name, path: newPath });
+
+    if(find) {
+        res.status(400).send('Ya existe un directorio con ese nombre');
+        return;
+    }
 
     await moveAll(username, name, oldPath, newPath);
 
@@ -123,6 +130,13 @@ const copyDirectory = async (req, res) => {
     const name = req.body.name;
     const path = req.body.path;
     const newPath = req.body.newPath;
+
+    const find = await Directory.findOne({ username: username, name: name, path: newPath });
+
+    if(find) {
+        res.status(400).send('Ya existe un directorio con ese nombre');
+        return;
+    }
 
     await copyAll(username, name, path, newPath);
 
